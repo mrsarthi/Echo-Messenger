@@ -1,4 +1,4 @@
-# Echo
+# [Echo](https://mrsarthi.github.io/Echo-Messenger/)
 **A secure, private, and decentralized messaging application where you own your identity and your conversations.**
 ---
 ## What is Echo?
