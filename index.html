@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Echo is a secure, decentralized messaging application. Experience self-sovereign identity, immutable usernames, and end-to-end encryption without central servers.">
+    <meta name="theme-color" content="#09090b">
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="Echo - Secure & Decentralized Messenger">
+    <meta property="og:description" content="Own your identity and conversations. Zero-knowledge, local-first E2EE chat for Android and Desktop.">
+    <meta property="og:type" content="website">
+    
+    <title>Echo | Own your conversations</title>
+    
+    <!-- Tailwind CSS & Fonts -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Satoshi:wght@100..900&family=jetbrainsMono:wght@100..900&display=swap" rel="stylesheet"/>
+    <link rel="icon" type="image/png" href="echo_logo.png">
+    <link rel="stylesheet" href="index.css">
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        background: "#09090b",
+                        surface: "#131315",
+                        "surface-container": "#201f22",
+                        "surface-container-low": "#1c1b1d",
+                        "surface-container-high": "#2a2a2c",
+                        "surface-container-lowest": "#0e0e10",
+                        primary: "#10b981",
+                        "zinc-border": "rgba(63, 63, 70, 0.4)",
+                        "zinc-muted": "#a1a1aa",
+                        "error-red": "#ef4444"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        "container-margin": "24px",
+                        "card-padding": "1.25rem",
+                        "breakpoint-md": "768px",
+                        "stack-gap": "0.75rem",
+                        "breakpoint-lg": "1200px",
+                        gutter: "16px"
+                    },
+                    fontFamily: {
+                        heading: ["Satoshi", "sans-serif"],
+                        body: ["Geist", "sans-serif"],
+                        mono: ["jetbrainsMono", "monospace"]
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Scripts -->
+    <script src="redirect.js" defer></script>
+    <script src="canvas.js" defer></script>
+    <script src="simulator.js" defer></script>
+</head>
+<body class="bg-background text-on-background selection:bg-primary selection:text-background font-body">
+
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <!-- Top Navigation Bar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-zinc-border">
+        <div class="flex justify-between items-center w-full px-container-margin py-4 max-w-[1200px] mx-auto">
+            <a href="#home" id="nav-logo-link" class="flex items-center gap-2 font-heading text-2xl font-black text-primary tracking-tighter decoration-none">
+                <img class="w-8 h-8 filter drop-shadow-[0_0_8px_rgba(16,185,129,0.3)]" src="echo_logo.png" alt="" />
+                <span>Echo</span>
+            </a>
+            
+            <div class="hidden md:flex gap-8 items-center">
+                <a id="link-features" class="text-zinc-muted font-medium hover:text-primary transition-colors duration-200 font-mono text-xs uppercase tracking-wider" href="#features">Features</a>
+                <a id="link-preview" class="text-zinc-muted font-medium hover:text-primary transition-colors duration-200 font-mono text-xs uppercase tracking-wider" href="#preview">Preview</a>
+                <a id="link-protocol" class="text-zinc-muted font-medium hover:text-primary transition-colors duration-200 font-mono text-xs uppercase tracking-wider" href="#protocol">Protocol</a>
+                <a id="link-network" class="text-zinc-muted font-medium hover:text-primary transition-colors duration-200 font-mono text-xs uppercase tracking-wider" href="#network">Network Status</a>
+            </div>
+            
+            <button id="connect-wallet-btn" class="bg-primary text-background font-bold px-4 py-2 rounded active:scale-95 transition-transform duration-150 font-mono text-xs uppercase tracking-wider">
+                Connect Wallet
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content wrapper -->
+    <main id="main" tabindex="-1" class="relative pt-24 pb-20 overflow-hidden">
+        
+        <!-- ================= LANDING PAGE VIEW ================= -->
+        <div id="landing-view" class="tab-view max-w-[1400px] mx-auto px-container-margin flex flex-col gap-40 relative z-10">
+            
+            <!-- Hero Section -->
+            <section class="scroll-animate reveal py-12 lg:py-16 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
+                
+                <!-- Left Column: Marketing Copy & CTAs -->
+                <div class="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left">
+                    <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white leading-[1.1] clip-reveal reveal">
+                        Be in charge of your conversations.
+                    </h1>
+                    <p class="font-body text-base text-zinc-muted mt-6 max-w-xl">
+                        End-to-end encrypted, local-first, and self-sovereign messaging designed for absolute privacy.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-4 mt-8 w-full sm:w-auto lg:w-full" id="download">
+                        <a id="btn-android" href="https://github.com/mrsarthi/Echo-Messenger/releases/latest" class="btn btn-primary btn-icon w-full justify-center" download>
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M5 16s0-5 7-5 7 5 7 5"/>
+                                <path d="M12 11V2"/>
+                                <path d="m9 5 3-3 3 3"/>
+                                <path d="M12 22v-6"/>
+                                <path d="M20 20v-4"/>
+                                <path d="M4 20v-4"/>
+                            </svg>
+                            <span>Download APK (Android)</span>
+                        </a>
+                        
+                        <a id="btn-windows" href="https://github.com/mrsarthi/Echo-Messenger/releases/latest" class="btn btn-secondary btn-icon w-full justify-center" download>
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" x2="16" y1="21" y2="21"/>
+                                <line x1="12" x2="12" y1="17" y2="21"/>
+                            </svg>
+                            <span>Download EXE (Windows)</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column: Cryptographic Sandbox -->
+                <div class="lg:col-span-7 w-full">
+                    <div class="bg-surface border border-zinc-border rounded-lg p-8 md:p-10 relative overflow-hidden shadow-2xl flex flex-col gap-8">
+                        <!-- Corner brackets -->
+                        <div class="corner-bracket top-left"></div>
+                        <div class="corner-bracket top-right"></div>
+                        <div class="corner-bracket bottom-left"></div>
+                        <div class="corner-bracket bottom-right"></div>
+                        <div class="terminal-badge">SYS_CRYPT_SANDBOX</div>
+
+                        <div class="flex justify-between items-center border-b border-zinc-border pb-2.5">
+                            <span class="font-mono text-xs uppercase tracking-wider text-white">E2EE Chat Simulator</span>
+                            <span id="sandbox-telemetry-tag" class="text-[9px] font-mono text-primary uppercase">System Idle</span>
+                        </div>
+
+                        <!-- Top row: Alice & Bob Chat screens -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <!-- Alice Pane -->
+                            <div class="bg-background/50 border border-zinc-border/60 p-4 rounded flex flex-col h-56">
+                                <div class="font-mono text-[9px] text-zinc-muted uppercase tracking-wider mb-2 border-b border-zinc-border/40 pb-1">Alice client (Sender)</div>
+                                <div id="alice-chat-feed" class="flex-grow font-body text-xs overflow-y-auto space-y-1.5 scrollbar-thin text-zinc-muted">
+                                    <div class="text-zinc-muted italic">Type a message below to test E2E Encryption...</div>
+                                </div>
+                                <div class="flex gap-1.5 mt-2">
+                                    <input id="sandbox-input" type="text" placeholder="Type secure message..." class="bg-surface border border-zinc-border rounded px-2.5 py-1 text-xs text-white focus:outline-none focus:border-primary flex-grow" maxlength="40">
+                                    <button id="sandbox-send-btn" class="bg-primary text-background font-bold px-3 py-1 rounded text-xs active:scale-95 transition-transform duration-100 font-mono uppercase tracking-wider">Send</button>
+                                </div>
+                            </div>
+
+                            <!-- Bob Pane -->
+                            <div class="bg-background/50 border border-zinc-border/60 p-4 rounded flex flex-col h-56">
+                                <div class="font-mono text-[9px] text-zinc-muted uppercase tracking-wider mb-2 border-b border-zinc-border/40 pb-1">Bob client (Receiver)</div>
+                                <div id="bob-chat-feed" class="flex-grow font-body text-xs overflow-y-auto space-y-1.5 scrollbar-thin text-zinc-muted">
+                                    <div class="text-zinc-muted italic">Waiting for secure payload...</div>
+                                </div>
+                                <div class="flex gap-1.5 mt-2">
+                                    <input id="sandbox-input-bob" type="text" placeholder="Type secure message..." class="bg-surface border border-zinc-border rounded px-2.5 py-1 text-xs text-white focus:outline-none focus:border-primary flex-grow" maxlength="40">
+                                    <button id="sandbox-send-btn-bob" class="bg-primary text-background font-bold px-3 py-1 rounded text-xs active:scale-95 transition-transform duration-100 font-mono uppercase tracking-wider">Send</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Middle Row: Path animations -->
+                        <div class="h-24 border border-zinc-border/50 bg-background/20 rounded relative flex items-center justify-between px-8 overflow-hidden">
+                            <span class="font-mono text-[9px] text-zinc-muted uppercase">Alice</span>
+                            
+                            <!-- Animated SVG Routing pipeline -->
+                            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                <svg class="w-full h-full stroke-zinc-border/60 fill-none" viewBox="0 0 400 80">
+                                    <path id="sandbox-path-line" d="M40 40 L200 40 L360 40" stroke-width="1.5" stroke-dasharray="3 3"></path>
+                                    
+                                    <!-- Packet flow dot -->
+                                    <circle id="sandbox-packet" class="fill-primary hidden" r="5.5"></circle>
+                                </svg>
+                            </div>
+                            
+                            <!-- Relay Node Indicator in the center -->
+                            <div id="sandbox-relay-node" class="relative z-10 bg-surface border border-zinc-border/80 w-16 h-8 rounded flex items-center justify-center font-mono text-[9px] text-zinc-muted uppercase tracking-wider hover:border-primary/40 transition-colors">
+                                Relay
+                            </div>
+
+                            <span class="font-mono text-[9px] text-zinc-muted uppercase">Bob</span>
+                        </div>
+
+                        <!-- Bottom Row: Relay Database Purge Telemetry -->
+                        <div id="sandbox-relay-log-panel" class="bg-surface-container-lowest border border-zinc-border/60 rounded p-5 font-mono text-[10px] space-y-2 transition-all duration-300">
+                            <div class="flex justify-between border-b border-zinc-border/30 pb-1 text-zinc-muted text-[8px] tracking-wider uppercase">
+                                <span>Relay Server Telemetry</span>
+                                <span>Database Buffer</span>
+                            </div>
+                            <div class="flex justify-between text-zinc-muted">
+                                <span>BUFFERED_PACKETS:</span>
+                                <span id="sandbox-relay-buffer" class="text-primary font-bold">0</span>
+                            </div>
+                            <div class="flex justify-between text-zinc-muted font-bold">
+                                <span>SERVER_STORAGE:</span>
+                                <span id="sandbox-relay-status" class="text-primary">CLEAR (0 RETAINED LOGS)</span>
+                            </div>
+                            <div class="flex justify-between text-zinc-muted truncate">
+                                <span>SNIFFER_CONSOLE:</span>
+                                <span id="sandbox-relay-payload" class="text-zinc-muted font-normal italic">No packets detected in memory.</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Tech Metrics Grid -->
+            <section class="border-t border-b border-zinc-border py-8 bg-surface/30 scroll-animate">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-[1000px] mx-auto justify-items-center">
+                    <div class="flex items-center gap-2 font-mono text-xs text-zinc-muted tracking-wider">
+                        <svg class="w-[18px] h-[18px] text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <span>TweetNaCl Crypto</span>
+                    </div>
+                    <div class="flex items-center gap-2 font-mono text-xs text-zinc-muted tracking-wider">
+                        <svg class="w-[18px] h-[18px] text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 6a6 6 0 0 1 6 6"/><circle cx="12" cy="12" r="1"/><path d="M12 22a10 10 0 0 1-10-10"/><path d="M12 18a6 6 0 0 1-6-6"/></svg>
+                        <span>Ephemeral Relays</span>
+                    </div>
+                    <div class="flex items-center gap-2 font-mono text-xs text-zinc-muted tracking-wider">
+                        <svg class="w-[18px] h-[18px] text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
+                        <span>Native Clients</span>
+                    </div>
+                    <div class="flex items-center gap-2 font-mono text-xs text-zinc-muted tracking-wider">
+                        <svg class="w-[18px] h-[18px] text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg>
+                        <span>Local-First Enclave</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Capabilities Grid -->
+            <section id="features" class="scroll-animate">
+                <h2 class="font-heading text-4xl font-bold text-center text-white mb-2 clip-reveal scroll-animate">Core Capabilities</h2>
+                <p class="font-body text-zinc-muted text-center max-w-xl mx-auto mb-16">
+                    Echo is built from the ground up to respect user sovereignty and prevent centralized surveillance pipelines.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <article class="feature-card">
+                        <div class="corner-bracket top-left"></div>
+                        <div class="corner-bracket top-right"></div>
+                        <div class="corner-bracket bottom-left"></div>
+                        <div class="corner-bracket bottom-right"></div>
+                        <div class="terminal-badge">SYS_ID_OK</div>
+
+                        <svg class="w-7 h-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 12a10 10 0 0 1 18-6"/><path d="M5 19.5A9 9 0 0 1 20 12"/><path d="M8.5 22a6 6 0 0 1 9.5-5"/><path d="M12 22a3 3 0 0 1 3-3"/><path d="M12 2v1"/></svg>
+                        <h3 class="font-heading text-xl font-bold text-white mt-4">Self-Sovereign Identity</h3>
+                        <p class="font-body text-zinc-muted text-sm leading-relaxed mt-2">Authenticated cryptographically via local wallet signatures. No email, no phone numbers, no centralized registries.</p>
+                    </article>
+                    
+                    <article class="feature-card">
+                        <div class="corner-bracket top-left"></div>
+                        <div class="corner-bracket top-right"></div>
+                        <div class="corner-bracket bottom-left"></div>
+                        <div class="corner-bracket bottom-right"></div>
+                        <div class="terminal-badge">NAME_RATCHET_OK</div>
+
+                        <svg class="w-7 h-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="4" x2="20" y1="9" y2="9"/><line x1="4" x2="20" y1="15" y2="15"/><line x1="10" x2="8" y1="3" y2="21"/><line x1="16" x2="14" y1="3" y2="21"/></svg>
+                        <h3 class="font-heading text-xl font-bold text-white mt-4">Immutable Usernames</h3>
+                        <p class="font-body text-zinc-muted text-sm leading-relaxed mt-2">Claim custom aliases permanently mapped to your wallet signature in the signaling directory. Zero moderation, zero censorship.</p>
+                    </article>
+                    
+                    <article class="feature-card">
+                        <div class="corner-bracket top-left"></div>
+                        <div class="corner-bracket top-right"></div>
+                        <div class="corner-bracket bottom-left"></div>
+                        <div class="corner-bracket bottom-right"></div>
+                        <div class="terminal-badge">E2EE_ACTIVE</div>
+
+                        <svg class="w-7 h-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="11" r="2"/><path d="m13.4 12.4 1.6 1.6M14 15l1.5-1.5"/></svg>
+                        <h3 class="font-heading text-xl font-bold text-white mt-4">End-to-End Encryption</h3>
+                        <p class="font-body text-zinc-muted text-sm leading-relaxed mt-2">Uses cryptographic keys generated client-side. Double ratchet guarantees forward secrecy and post-compromise security.</p>
+                    </article>
+                    
+                    <article class="feature-card">
+                        <div class="corner-bracket top-left"></div>
+                        <div class="corner-bracket top-right"></div>
+                        <div class="corner-bracket bottom-left"></div>
+                        <div class="corner-bracket bottom-right"></div>
+                        <div class="terminal-badge">LOCAL_DB_SECURED</div>
+
+                        <svg class="w-7 h-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" x2="6" y1="6" y2="6"/><line x1="6" x2="6" y1="18" y2="18"/></svg>
+                        <h3 class="font-heading text-xl font-bold text-white mt-4">Local-First Storage</h3>
+                        <p class="font-body text-zinc-muted text-sm leading-relaxed mt-2">All conversations and cryptographic enclaves reside on your hardware. Relays process ephemeral packets and store nothing.</p>
+                    </article>
+                    
+                    <article class="feature-card md:col-span-2">
+                        <div class="corner-bracket top-left"></div>
+                        <div class="corner-bracket top-right"></div>
+                        <div class="corner-bracket bottom-left"></div>
+                        <div class="corner-bracket bottom-right"></div>
+                        <div class="terminal-badge">GROUP_ACK_RATIO_1_0</div>
+
+                        <svg class="w-7 h-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m18 6-7 7-3-3"/><path d="m22 10-7.5 7.5L13 16"/></svg>
+                        <h3 class="font-heading text-xl font-bold text-white mt-4">Optimized Group Receipts</h3>
+                        <p class="font-body text-zinc-muted text-sm leading-relaxed mt-2">Read receipts route directly and exclusively back to the message author. Eliminates chat metadata leaks and heavy data synchronization overhead on group channels.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Product Preview Mockup -->
+            <section id="preview" class="scroll-animate">
+                <h2 class="font-heading text-4xl font-bold text-center text-white mb-2 clip-reveal scroll-animate">Clean, Seamless Interface</h2>
+                <p class="font-body text-zinc-muted text-center max-w-xl mx-auto mb-16">
+                    Sovereignty doesn't have to sacrifice usability. Experience a fast, beautiful client on both desktop and mobile.
+                </p>
+                
+                <div class="app-mockup">
+                    <div class="corner-bracket top-left"></div>
+                    <div class="corner-bracket top-right"></div>
+                    <div class="corner-bracket bottom-left"></div>
+                    <div class="corner-bracket bottom-right"></div>
+
+                    <div class="mockup-toolbar">
+                        <div class="mockup-dots">
+                            <div class="mockup-dot"></div>
+                            <div class="mockup-dot"></div>
+                            <div class="mockup-dot"></div>
+                        </div>
+                        <div class="mockup-title">ECHO MESSENGER CLIENT</div>
+                        <div class="w-[46px]"></div>
+                    </div>
+
+                    <div class="mockup-body font-body">
+                        <!-- Sidebar -->
+                        <div class="mockup-sidebar">
+                            <div class="sidebar-search">Search chats...</div>
+                            <div class="sidebar-items">
+                                <div class="sidebar-item active">
+                                    <div class="item-avatar"></div>
+                                    <div class="item-info">
+                                        <span class="item-name text-white">Satoshi Nakamoto</span>
+                                        <span class="item-snippet">Perfect. Let's send the en...</span>
+                                    </div>
+                                </div>
+                                <div class="sidebar-item">
+                                    <div class="item-avatar" style="background: linear-gradient(135deg, var(--accent-secondary), #ec4899)"></div>
+                                    <div class="item-info">
+                                        <span class="item-name text-white">Hal Finney</span>
+                                        <span class="item-snippet">System fully ratcheted.</span>
+                                    </div>
+                                </div>
+                                <div class="sidebar-item">
+                                    <div class="item-avatar" style="background: linear-gradient(135deg, #f59e0b, #eab308)"></div>
+                                    <div class="item-info">
+                                        <span class="item-name text-white">Szabo Group</span>
+                                        <span class="item-snippet">Alice: Cryptographic state OK</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Active Chat Screen -->
+                        <div class="mockup-chat">
+                            <div class="chat-header">
+                                <div class="chat-details">
+                                    <div class="chat-title text-white">Satoshi Nakamoto</div>
+                                    <div class="chat-status text-primary">Secure Connection Active</div>
+                                </div>
+                                <div class="chat-actions">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-muted cursor-pointer"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                </div>
+                            </div>
+                            
+                            <div class="chat-feed">
+                                <div class="feed-bubble incoming">
+                                    Hello! Welcome to the new Echo client interface.
+                                </div>
+                                <div class="feed-bubble outgoing">
+                                    Incredible. Everything runs locally inside the enclave database.
+                                </div>
+                                <div class="feed-bubble incoming">
+                                    Exactly. No central servers reading messages or storing metadata.
+                                </div>
+                            </div>
+
+                            <div class="chat-input-area">
+                                <div class="mockup-input">Type secure message...</div>
+                                <button class="btn btn-primary" style="padding: 8px 16px; font-size: 11px;" disabled>Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cryptographic Protocol Section -->
+            <section id="protocol" class="scroll-animate mb-12">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div class="protocol-text-content">
+                        <h2 id="protocol-heading" class="font-heading text-4xl font-bold text-left text-white mb-6 clip-reveal scroll-animate">Cryptographic Protocol</h2>
+                        <p class="font-body text-zinc-muted text-base leading-relaxed mb-6">
+                            Echo implements a high-performance communication pipeline that combines TweetNaCl cryptography with client-side sqlite enclaves. Every message payload is locked on-device before transport.
+                        </p>
+                        <ul class="flex flex-col gap-5 list-none" aria-label="Protocol details">
+                            <li class="flex items-start gap-4 font-body text-zinc-muted">
+                                <svg class="w-5 h-5 text-primary flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span>X25519 DH key bundles with XSalsa20-Poly1305 symmetric lockboxes</span>
+                            </li>
+                            <li class="flex items-start gap-4 font-body text-zinc-muted">
+                                <svg class="w-5 h-5 text-primary flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span>Signaling server abstracts routing coordinates without accessing keys</span>
+                            </li>
+                            <li class="flex items-start gap-4 font-body text-zinc-muted">
+                                <svg class="w-5 h-5 text-primary flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                <span>Mutex-locked send queue ensures zero-drop reliability during offline states</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="protocol-visual-card scroll-animate">
+                        <div class="corner-bracket top-left"></div>
+                        <div class="corner-bracket top-right"></div>
+                        <div class="corner-bracket bottom-left"></div>
+                        <div class="corner-bracket bottom-right"></div>
+                        <div class="terminal-badge">DIAGRAM_NET_SCHEMATIC</div>
+
+                        <div class="visual-badge">ENCLAVE_ACTIVE</div>
+                        <div class="visual-graph">
+                            <!-- Abstract Tech Graphics -->
+                            <svg class="visual-svg w-full max-w-[360px] text-zinc-muted" viewBox="0 0 400 200" fill="none" stroke="currentColor" stroke-width="2">
+                                <!-- Interconnected Nodes -->
+                                <circle cx="80" cy="100" r="8" fill="var(--accent-primary)" />
+                                <circle cx="200" cy="60" r="5" />
+                                <circle cx="200" cy="140" r="5" />
+                                <circle cx="320" cy="100" r="8" fill="var(--accent-primary)" />
+                                
+                                <!-- Connecting Lines -->
+                                <path id="svg-path-1" d="M86 100 L196 60" />
+                                <path id="svg-path-2" d="M86 100 L196 140" />
+                                <path id="svg-path-3" d="M204 60 L314 100" />
+                                <path id="svg-path-4" d="M204 140 L314 100" />
+                                
+                                <path id="svg-path-5" d="M200 64 V136" />
+                                
+                                <!-- Floating Data Blobs -->
+                                <circle cx="140" cy="80" r="3.5" fill="var(--accent-primary)">
+                                    <animate attributeName="cx" values="86;200;314" dur="4s" repeatCount="indefinite" />
+                                    <animate attributeName="cy" values="100;60;100" dur="4s" repeatCount="indefinite" />
+                                </circle>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- ================= NETWORK STATUS DASHBOARD VIEW ================= -->
+        <div id="dashboard-view" class="tab-view hidden max-w-[1200px] mx-auto px-container-margin relative z-10 flex flex-col gap-12">
+            
+            <!-- Hero Header -->
+            <section class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div>
+                    <h1 class="font-heading text-5xl font-black tracking-tighter text-white">NETWORK_STATUS</h1>
+                    <p class="font-body text-base text-zinc-muted mt-2 max-w-xl">
+                        Real-time cryptographic heartbeat of the Echo decentralized communication layer. 
+                    </p>
+                </div>
+                <div class="flex gap-4">
+                    <button id="dashboard-refresh-btn" class="px-4 py-2 border border-zinc-border font-mono text-xs uppercase hover:bg-surface-container-high transition-colors active:scale-95 text-white">
+                        &gt; REFRESH_GRAPH
+                    </button>
+                    <button id="dashboard-export-btn" class="px-4 py-2 border border-zinc-border font-mono text-xs uppercase hover:bg-surface-container-high transition-colors active:scale-95 text-white">
+                        &gt; EXPORT_LOGS
+                    </button>
+                </div>
+            </section>
+
+            <!-- Global Connectivity Graph Canvas (Visualizer) -->
+            <section class="h-96 w-full bg-surface-container-lowest border border-zinc-border rounded-lg relative overflow-hidden group">
+                <div class="scanline"></div>
+                <div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, rgba(63, 63, 70, 0.4) 1px, transparent 0); background-size: 24px 24px;"></div>
+                
+                <!-- Live Network visualizer graph -->
+                <div class="absolute inset-0 flex items-center justify-center p-12">
+                    <svg id="live-visualizer-svg" class="w-full h-full stroke-primary/30 fill-none" viewBox="0 0 1000 400">
+                        <!-- Dynamic connecting paths -->
+                        <path id="vis-line-1" d="M100 200 L300 100 L500 250 L700 80 L900 200" stroke-width="1.5"></path>
+                        <path id="vis-line-2" d="M100 200 L500 250 L200 350 L100 200" stroke-dasharray="4 4" stroke-width="0.5"></path>
+                        <path id="vis-line-3" d="M900 200 L700 80 L600 300 L900 200" stroke-dasharray="4 4" stroke-width="0.5"></path>
+                        
+                        <!-- Connecting Relay Lines -->
+                        <path id="vis-relay-1" d="M300 100 L200 350" stroke-width="0.5" stroke-dasharray="2 2"></path>
+                        <path id="vis-relay-2" d="M500 250 L600 300" stroke-width="0.5" stroke-dasharray="2 2"></path>
+
+                        <!-- Animated Pulse Nodes -->
+                        <circle id="node-a" class="fill-primary node-pulse" cx="100" cy="200" r="5"></circle>
+                        <circle id="node-b" class="fill-primary node-pulse" cx="300" cy="100" r="5"></circle>
+                        <circle id="node-c" class="fill-primary node-pulse" cx="500" cy="250" r="7" style="animation-delay: 0.5s"></circle>
+                        <circle id="node-d" class="fill-primary node-pulse" cx="700" cy="80" r="5" style="animation-delay: 1.2s"></circle>
+                        <circle id="node-e" class="fill-primary node-pulse" cx="900" cy="200" r="5" style="animation-delay: 0.8s"></circle>
+                        
+                        <circle class="fill-primary/40" cx="200" cy="350" r="3.5"></circle>
+                        <circle class="fill-primary/40" cx="600" cy="300" r="3.5"></circle>
+                        
+                        <!-- Travelling Data Packets -->
+                        <circle id="packet-path-1" class="fill-primary" r="4">
+                            <animateMotion dur="5s" repeatCount="indefinite" path="M100 200 L300 100 L500 250 L700 80 L900 200" />
+                        </circle>
+                        <circle id="packet-path-2" class="fill-primary" r="4">
+                            <animateMotion dur="7s" repeatCount="indefinite" path="M900 200 L700 80 L600 300 L200 350 L100 200" />
+                        </circle>
+                    </svg>
+                </div>
+                
+                <!-- Overlay Data -->
+                <div class="absolute top-4 left-4 font-mono text-xs text-primary uppercase tracking-wider">
+                    [ECHO_NET_MAP: ROUTING_HEARTBEAT]
+                </div>
+                <div class="absolute bottom-4 right-4 flex gap-6 text-[10px] font-mono text-zinc-muted uppercase tracking-wider">
+                    <div>GLOBAL_LATENCY: <span id="vis-latency" class="text-primary font-bold">12ms</span></div>
+                    <div>PACKET_LOSS: <span id="vis-loss" class="text-primary font-bold">0.0001%</span></div>
+                </div>
+            </section>
+
+            <!-- Global Metrics Grid -->
+            <section class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="bg-surface border border-zinc-border p-5 rounded group hover:border-primary/50 transition-colors">
+                    <div class="font-mono text-[10px] text-zinc-muted uppercase tracking-widest mb-2">ACTIVE_P2P_NODES</div>
+                    <div id="metric-nodes" class="font-heading text-3xl font-extrabold text-primary">1,402</div>
+                    <div class="flex items-center gap-1 mt-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary node-pulse"></span>
+                        <span class="font-mono text-[9px] text-primary">+12 Active Peers</span>
+                    </div>
+                </div>
+                
+                <div class="bg-surface border border-zinc-border p-5 rounded group hover:border-primary/50 transition-colors">
+                    <div class="font-mono text-[10px] text-zinc-muted uppercase tracking-widest mb-2">NETWORK_CAPACITY</div>
+                    <div class="font-heading text-3xl font-extrabold text-white">850 <span class="font-mono text-sm font-normal text-zinc-muted">MB/s</span></div>
+                    <div class="mt-1 font-mono text-[9px] text-zinc-muted">92% TOTAL_UTILIZATION</div>
+                </div>
+                
+                <div class="bg-surface border border-zinc-border p-5 rounded group hover:border-primary/50 transition-colors">
+                    <div class="font-mono text-[10px] text-zinc-muted uppercase tracking-widest mb-2">DECENTRALIZED_UPTIME</div>
+                    <div class="font-heading text-3xl font-extrabold text-white">100.00<span class="font-mono text-sm font-normal text-zinc-muted">%</span></div>
+                    <div class="mt-1 font-mono text-[9px] text-zinc-muted">ZERO SINGLE POINT OF FAILURE</div>
+                </div>
+                
+                <div class="bg-surface border border-zinc-border p-5 rounded group hover:border-primary/50 transition-colors">
+                    <div class="font-mono text-[10px] text-zinc-muted uppercase tracking-widest mb-2">CORE_VERSION</div>
+                    <div class="font-heading text-3xl font-extrabold text-white">v1.0.4</div>
+                    <div class="mt-1 font-mono text-[9px] text-zinc-muted">STABLE RELEASE BUILD</div>
+                </div>
+            </section>
+
+            <!-- Bento-style Analytics -->
+            <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Active Peer Console -->
+                <div class="md:col-span-2 bg-surface-container-low border border-zinc-border flex flex-col h-[400px] rounded-lg overflow-hidden">
+                    <div class="px-4 py-2.5 bg-surface-container-high border-b border-zinc-border flex justify-between items-center">
+                        <span class="font-mono text-xs uppercase tracking-wider text-white">ACTIVE_PEER_CONSOLE</span>
+                        <span class="text-[10px] font-mono text-primary animate-pulse">RECORDING_LOGS...</span>
+                    </div>
+                    <div class="p-4 font-mono text-xs terminal-scroll overflow-y-auto flex-grow space-y-2" id="terminal" aria-live="polite">
+                        <div class="text-zinc-muted">[14:02:01] <span class="text-primary">PEER_0x82...</span> CONNECTED [X25519 DH Enclave]</div>
+                        <div class="text-zinc-muted">[14:02:05] <span class="text-primary">PEER_0x11...</span> AUTHENTICATED [Wallet Signature]</div>
+                        <div class="text-zinc-muted">[14:02:12] BROADCAST_SYNC initiated for epoch 12,402</div>
+                        <div class="text-zinc-muted">[14:02:15] <span class="text-primary">PEER_0x99...</span> HANDSHAKE_SUCCESS [Ping: 8ms]</div>
+                        <div class="text-zinc-muted">[14:02:18] UNICAST_ROUTING optimization complete</div>
+                        <div class="text-zinc-muted">[14:02:22] <span class="text-primary">PEER_0x44...</span> CONNECTED [X25519 DH Enclave]</div>
+                        <div class="text-error-red">[14:02:25] PEER_0xBC... CONNECTION_DROPPED [Timeout fallback to Ephemeral Relay]</div>
+                        <div class="text-zinc-muted">[14:02:30] SYNC_WAVE_01 propagation: 99.8% coverage</div>
+                    </div>
+                </div>
+                
+                <!-- Unicast Efficiency Graph -->
+                <div class="bg-surface border border-zinc-border p-6 flex flex-col justify-between rounded-lg">
+                    <div>
+                        <h3 class="font-heading text-xl font-bold text-white mb-2">Routing Efficiency</h3>
+                        <p class="font-mono text-[10px] text-zinc-muted uppercase tracking-wider mb-6">P2P TUNNELING RATIO VS RELAY</p>
+                        
+                        <div class="space-y-6">
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-[10px] font-mono">
+                                    <span>DIRECT_P2P_TUNNELS</span>
+                                    <span class="text-primary">88%</span>
+                                </div>
+                                <div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+                                    <div class="h-full bg-primary" style="width: 88%"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-[10px] font-mono">
+                                    <span>EPHEMERAL_RELAY_FALLBACKS</span>
+                                    <span>12%</span>
+                                </div>
+                                <div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+                                    <div class="h-full bg-zinc-muted" style="width: 12%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-6 border-t border-zinc-border mt-6">
+                        <div class="text-[10px] font-mono text-zinc-muted leading-relaxed">
+                            Direct peer connection rates stabilized at 88% due to optimized hole-punching NAT traversal protocols. Relay fallbacks are used exclusively for symmetric NAT restrictions.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Node Matrix -->
+            <section class="bg-surface border border-zinc-border p-6 rounded-lg mb-12">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="font-heading text-xl font-bold text-white">Interactive Node Matrix</h2>
+                    <div class="flex items-center gap-6 font-mono text-xs">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 bg-primary rounded-full"></span>
+                            <span>SECURE P2P</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 bg-error-red rounded-full"></span>
+                            <span>RELAY FALLBACK</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-12 gap-4" id="node-matrix-grid">
+                    <!-- Nodes will be enriched dynamically by simulator.js, displaying N1-N24 -->
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden">
+                        <span class="font-mono text-xs group-hover:scale-125 transition-transform text-white">N1</span>
+                        <div class="absolute inset-0 bg-surface-container p-2 opacity-0 group-hover:opacity-100 transition-opacity z-20 pointer-events-none flex flex-col justify-center">
+                            <div class="text-[8px] font-mono text-primary">ID: 0xA1</div>
+                            <div class="text-[8px] font-mono text-white">LATENCY: 4ms</div>
+                            <div class="text-[8px] font-mono text-zinc-muted truncate">X25519: Echo_Pub_..</div>
+                        </div>
+                    </div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N2</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N3</span></div>
+                    <div class="aspect-square bg-surface-container border border-error-red/40 relative group cursor-pointer hover:bg-error-red/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-error-red">N4</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N5</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N6</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N7</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N8</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N9</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N10</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N11</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N12</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N13</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N14</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N15</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N16</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N17</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N18</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N19</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N20</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N21</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N22</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N23</span></div>
+                    <div class="aspect-square bg-surface-container border border-zinc-border relative group cursor-pointer hover:bg-primary/20 transition-all duration-300 flex items-center justify-center overflow-hidden"><span class="font-mono text-xs text-white">N24</span></div>
+                </div>
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- Footer Shell -->
+    <footer class="bg-surface-container-lowest border-t border-zinc-border py-12 relative z-10 font-body">
+        <div class="flex flex-col md:flex-row justify-between items-center w-full px-container-margin max-w-[1200px] mx-auto gap-8">
+            <div class="flex flex-col items-center md:items-start gap-2">
+                <div class="font-heading text-2xl text-on-surface font-bold tracking-tighter text-white">Echo</div>
+                <p class="font-body text-sm text-zinc-muted">&copy; 2026 Echo Protocol. Decentralized by design.</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+                <a class="font-mono text-xs text-zinc-muted hover:text-on-surface transition-colors uppercase tracking-wider" href="#">Whitepaper</a>
+                <a class="font-mono text-xs text-zinc-muted hover:text-on-surface transition-colors uppercase tracking-wider" href="#">Specs</a>
+                <a class="font-mono text-xs text-primary hover:text-on-surface transition-colors uppercase tracking-wider" href="#network" id="footer-net-link">Network Status</a>
+                <a class="font-mono text-xs text-zinc-muted hover:text-on-surface transition-colors uppercase tracking-wider" href="https://github.com/mrsarthi/Echo-Messenger">Repository</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
