@@ -10,8 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     const landingView = document.getElementById('landing-view');
     const dashboardView = document.getElementById('dashboard-view');
-    const privacyView = document.getElementById('privacy-view');
-    const termsView = document.getElementById('terms-view');
+    const legalView = document.getElementById('legal-view');
+    const legalTabPrivacy = document.getElementById('legal-tab-privacy');
+    const legalTabTerms = document.getElementById('legal-tab-terms');
+    const legalPrivacyContent = document.getElementById('legal-privacy-content');
+    const legalTermsContent = document.getElementById('legal-terms-content');
     
     const navLogoLink = document.getElementById('nav-logo-link');
     const linkFeatures = document.getElementById('link-features');
@@ -26,8 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Hide all views first
         landingView.classList.add('hidden');
         dashboardView.classList.add('hidden');
-        if (privacyView) privacyView.classList.add('hidden');
-        if (termsView) termsView.classList.add('hidden');
+        if (legalView) legalView.classList.add('hidden');
         
         // Revert Navigation Styles
         linkNetwork.className = "text-zinc-muted font-medium hover:text-primary transition-colors duration-200 font-mono text-xs uppercase tracking-wider";
@@ -40,11 +42,25 @@ document.addEventListener('DOMContentLoaded', () => {
             // Update Active Navigation Styles
             linkNetwork.className = "text-primary font-bold border-b-2 border-primary pb-1 font-mono text-xs uppercase tracking-wider";
             window.scrollTo({ top: 0, behavior: 'instant' });
-        } else if (tabName === 'privacy') {
-            if (privacyView) privacyView.classList.remove('hidden');
+        } else if (tabName === 'legal-privacy') {
+            if (legalView) {
+                legalView.classList.remove('hidden');
+                if (legalPrivacyContent) legalPrivacyContent.classList.remove('hidden');
+                if (legalTermsContent) legalTermsContent.classList.add('hidden');
+                
+                if (legalTabPrivacy) legalTabPrivacy.className = "px-4 py-2 font-mono text-xs uppercase transition-all tracking-wider font-bold rounded bg-primary/10 border border-primary text-primary";
+                if (legalTabTerms) legalTabTerms.className = "px-4 py-2 font-mono text-xs uppercase transition-all tracking-wider font-bold rounded border border-transparent text-zinc-muted hover:text-white";
+            }
             window.scrollTo({ top: 0, behavior: 'instant' });
-        } else if (tabName === 'terms') {
-            if (termsView) termsView.classList.remove('hidden');
+        } else if (tabName === 'legal-terms') {
+            if (legalView) {
+                legalView.classList.remove('hidden');
+                if (legalTermsContent) legalTermsContent.classList.remove('hidden');
+                if (legalPrivacyContent) legalPrivacyContent.classList.add('hidden');
+                
+                if (legalTabTerms) legalTabTerms.className = "px-4 py-2 font-mono text-xs uppercase transition-all tracking-wider font-bold rounded bg-primary/10 border border-primary text-primary";
+                if (legalTabPrivacy) legalTabPrivacy.className = "px-4 py-2 font-mono text-xs uppercase transition-all tracking-wider font-bold rounded border border-transparent text-zinc-muted hover:text-white";
+            }
             window.scrollTo({ top: 0, behavior: 'instant' });
         } else {
             landingView.classList.remove('hidden');
@@ -55,10 +71,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const hash = window.location.hash;
         if (hash === '#network') {
             switchToTab('dashboard');
-        } else if (hash === '#privacy') {
-            switchToTab('privacy');
-        } else if (hash === '#terms') {
-            switchToTab('terms');
+        } else if (hash === '#legal-privacy') {
+            switchToTab('legal-privacy');
+        } else if (hash === '#legal-terms') {
+            switchToTab('legal-terms');
+        } else if (hash === '#legal') {
+            switchToTab('legal-privacy');
         } else {
             switchToTab('landing');
             if (hash && hash !== '#home') {
@@ -84,11 +102,20 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.hash = 'network';
     });
 
+    if (legalTabPrivacy && legalTabTerms) {
+        legalTabPrivacy.addEventListener('click', () => {
+            window.location.hash = 'legal-privacy';
+        });
+        legalTabTerms.addEventListener('click', () => {
+            window.location.hash = 'legal-terms';
+        });
+    }
+
     landingLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             const targetHash = link.getAttribute('href');
             const currentHash = window.location.hash;
-            if (currentHash === '#network' || currentHash === '#privacy' || currentHash === '#terms') {
+            if (currentHash === '#network' || currentHash.startsWith('#legal')) {
                 e.preventDefault();
                 switchToTab('landing');
                 window.location.hash = targetHash;
