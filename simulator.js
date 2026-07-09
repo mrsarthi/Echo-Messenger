@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     const landingView = document.getElementById('landing-view');
     const dashboardView = document.getElementById('dashboard-view');
+    const privacyView = document.getElementById('privacy-view');
+    const termsView = document.getElementById('terms-view');
     
     const navLogoLink = document.getElementById('nav-logo-link');
     const linkFeatures = document.getElementById('link-features');
@@ -21,22 +23,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const landingLinks = [navLogoLink, linkFeatures, linkPreview, linkProtocol];
 
     function switchToTab(tabName) {
+        // Hide all views first
+        landingView.classList.add('hidden');
+        dashboardView.classList.add('hidden');
+        if (privacyView) privacyView.classList.add('hidden');
+        if (termsView) termsView.classList.add('hidden');
+        
+        // Revert Navigation Styles
+        linkNetwork.className = "text-zinc-muted font-medium hover:text-primary transition-colors duration-200 font-mono text-xs uppercase tracking-wider";
+        [linkFeatures, linkPreview, linkProtocol].forEach(link => {
+            link.className = "text-zinc-muted font-medium hover:text-primary transition-colors duration-200 font-mono text-xs uppercase tracking-wider";
+        });
+
         if (tabName === 'dashboard') {
-            landingView.classList.add('hidden');
             dashboardView.classList.remove('hidden');
-            
             // Update Active Navigation Styles
             linkNetwork.className = "text-primary font-bold border-b-2 border-primary pb-1 font-mono text-xs uppercase tracking-wider";
-            [linkFeatures, linkPreview, linkProtocol].forEach(link => {
-                link.className = "text-zinc-muted font-medium hover:text-primary transition-colors duration-200 font-mono text-xs uppercase tracking-wider";
-            });
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        } else if (tabName === 'privacy') {
+            if (privacyView) privacyView.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        } else if (tabName === 'terms') {
+            if (termsView) termsView.classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'instant' });
         } else {
-            dashboardView.classList.add('hidden');
             landingView.classList.remove('hidden');
-            
-            // Revert Navigation Styles
-            linkNetwork.className = "text-zinc-muted font-medium hover:text-primary transition-colors duration-200 font-mono text-xs uppercase tracking-wider";
         }
     }
 
@@ -44,6 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const hash = window.location.hash;
         if (hash === '#network') {
             switchToTab('dashboard');
+        } else if (hash === '#privacy') {
+            switchToTab('privacy');
+        } else if (hash === '#terms') {
+            switchToTab('terms');
         } else {
             switchToTab('landing');
             if (hash && hash !== '#home') {
@@ -72,7 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
     landingLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             const targetHash = link.getAttribute('href');
-            if (window.location.hash === '#network') {
+            const currentHash = window.location.hash;
+            if (currentHash === '#network' || currentHash === '#privacy' || currentHash === '#terms') {
                 e.preventDefault();
                 switchToTab('landing');
                 window.location.hash = targetHash;
@@ -84,31 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize routing on first load
     handleRouting();
 
-
     // ==========================================
-    // 2. WALLET CONNECTION STATE SIMULATOR
-    // ==========================================
-    const connectWalletBtn = document.getElementById('connect-wallet-btn');
-    let isWalletConnected = false;
-
-    connectWalletBtn.addEventListener('click', () => {
-        isWalletConnected = !isWalletConnected;
-        const timestamp = new Date().toLocaleTimeString('en-GB', { hour12: false });
-        
-        if (isWalletConnected) {
-            connectWalletBtn.textContent = "0x71c...f89a";
-            connectWalletBtn.className = "border border-primary text-primary font-bold px-4 py-2 rounded active:scale-95 transition-transform duration-150 font-mono text-xs uppercase tracking-wider";
-            appendLog(`[${timestamp}] <span class="text-primary">USER_WALLET_CONNECTED</span>: Secp256k1 signature resolved. Username claims enabled.`);
-        } else {
-            connectWalletBtn.textContent = "Connect Wallet";
-            connectWalletBtn.className = "bg-primary text-background font-bold px-4 py-2 rounded active:scale-95 transition-transform duration-150 font-mono text-xs uppercase tracking-wider";
-            appendLog(`[${timestamp}] <span class="text-error-red">USER_WALLET_DISCONNECTED</span>: Session closed.`);
-        }
-    });
-
-
-    // ==========================================
-    // 3. LIVE LOGGER & METRICS SIMULATOR
+    // 2. LIVE LOGGER & METRICS SIMULATOR
     // ==========================================
     const terminal = document.getElementById('terminal');
     const visLatency = document.getElementById('vis-latency');

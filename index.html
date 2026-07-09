@@ -84,10 +84,6 @@
                 <a id="link-protocol" class="text-zinc-muted font-medium hover:text-primary transition-colors duration-200 font-mono text-xs uppercase tracking-wider" href="#protocol">Protocol</a>
                 <a id="link-network" class="text-zinc-muted font-medium hover:text-primary transition-colors duration-200 font-mono text-xs uppercase tracking-wider" href="#network">Network Status</a>
             </div>
-            
-            <button id="connect-wallet-btn" class="bg-primary text-background font-bold px-4 py-2 rounded active:scale-95 transition-transform duration-150 font-mono text-xs uppercase tracking-wider">
-                Connect Wallet
-            </button>
         </div>
     </nav>
 
@@ -103,7 +99,7 @@
                 <!-- Left Column: Marketing Copy & CTAs -->
                 <div class="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left">
                     <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white leading-[1.1] clip-reveal reveal">
-                        Be in charge of your conversations.
+                        Own your conversations.
                     </h1>
                     <p class="font-body text-base text-zinc-muted mt-6 max-w-xl">
                         End-to-end encrypted, local-first, and self-sovereign messaging designed for absolute privacy.
@@ -670,6 +666,127 @@
 
         </div>
 
+        <!-- ================= PRIVACY POLICY VIEW ================= -->
+        <div id="privacy-view" class="tab-view hidden max-w-[1000px] mx-auto px-container-margin relative z-10 flex flex-col gap-10">
+            <section class="scroll-animate reveal py-6 flex flex-col gap-8">
+                <div>
+                    <h1 class="font-heading text-5xl font-black tracking-tighter text-white">PRIVACY_POLICY</h1>
+                    <p class="font-mono text-xs text-primary mt-2">Effective Date: July 9, 2026</p>
+                </div>
+                
+                <div class="bg-surface border border-zinc-border rounded-lg p-8 md:p-10 relative overflow-hidden shadow-2xl flex flex-col gap-8 font-body text-zinc-muted text-base leading-relaxed">
+                    <div class="corner-bracket top-left"></div>
+                    <div class="corner-bracket top-right"></div>
+                    <div class="corner-bracket bottom-left"></div>
+                    <div class="corner-bracket bottom-right"></div>
+                    
+                    <div class="bg-zinc-border/10 border-l-4 border-primary p-4 rounded text-zinc-muted text-sm font-mono flex items-start gap-3">
+                        <span class="material-symbols-outlined text-primary mt-0.5">info</span>
+                        <div>
+                            <span class="font-bold text-white">IMPORTANT:</span> These drafts are templates designed to align with Echo's local-first, decentralized architecture. They must be reviewed by qualified legal counsel prior to public deployment.
+                        </div>
+                    </div>
+
+                    <p>
+                        Echo is committed to user privacy. Unlike traditional messaging services, we do not require accounts, phone numbers, or email addresses. Your messages are encrypted in transit and stored locally on your device.
+                    </p>
+
+                    <div>
+                        <h2 class="font-heading text-xl font-bold text-white mb-3">1.1. Data Collection & Processing</h2>
+                        <ul class="list-disc list-inside pl-4 space-y-2">
+                            <li><strong class="text-white">Local Client Data:</strong> All chat histories, contact lists, user configurations, and cryptographic key bundles are stored strictly on your local device (using local browser storage / SQLite). We have no access to this data.</li>
+                            <li><strong class="text-white">Transient Relay Metadata:</strong> If you use our default routing relay to send messages, our servers temporarily process the following:
+                                <ul class="list-circle list-inside pl-6 mt-1 space-y-1">
+                                    <li><strong class="text-white">Active Socket connections:</strong> While connected, your public key/wallet address is held in the server's volatile RAM to map routing rooms.</li>
+                                    <li><strong class="text-white">IP Addresses:</strong> The relay server processes your IP address to establish the websocket handshake.</li>
+                                </ul>
+                            </li>
+                            <li><strong class="text-white">No Retention:</strong> We do not write IP addresses to disk logs, nor do we associate IP addresses with cryptographic keys in any persistent database. When your socket disconnects, all routing data is immediately purged from RAM.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h2 class="font-heading text-xl font-bold text-white mb-3">1.2. Third-Party Hosting</h2>
+                        <p>
+                            Our default relay is hosted on Render. Render may capture automatic system-level routing logs (such as IP addresses and request timestamps) for network security and DDoS mitigation. Please refer to Render's Privacy Policy for more details. You can completely bypass this third-party dependency by configuring your client to use a custom, self-hosted relay.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h2 class="font-heading text-xl font-bold text-white mb-3">1.3. Your Rights (GDPR / CCPA)</h2>
+                        <p>
+                            Because we do not store, map, or retain any persistent personal data (such as IP addresses linked to identities), we hold no user records to search, modify, or erase. If you wish to purge your routing footprint, simply disconnect the client app from our default relay.
+                        </p>
+                    </div>
+
+                    <div class="mt-4 pt-6 border-t border-zinc-border/40 flex justify-start">
+                        <a href="#home" class="btn btn-secondary font-mono text-xs uppercase tracking-wider">&lt; Return to home</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= TERMS OF SERVICE VIEW ================= -->
+        <div id="terms-view" class="tab-view hidden max-w-[1000px] mx-auto px-container-margin relative z-10 flex flex-col gap-10">
+            <section class="scroll-animate reveal py-6 flex flex-col gap-8">
+                <div>
+                    <h1 class="font-heading text-5xl font-black tracking-tighter text-white">TERMS_OF_SERVICE</h1>
+                    <p class="font-mono text-xs text-primary mt-2">Effective Date: July 9, 2026</p>
+                </div>
+                
+                <div class="bg-surface border border-zinc-border rounded-lg p-8 md:p-10 relative overflow-hidden shadow-2xl flex flex-col gap-8 font-body text-zinc-muted text-base leading-relaxed">
+                    <div class="corner-bracket top-left"></div>
+                    <div class="corner-bracket top-right"></div>
+                    <div class="corner-bracket bottom-left"></div>
+                    <div class="corner-bracket bottom-right"></div>
+
+                    <p>
+                        Welcome to Echo (the "Software"), a local-first messaging client. By accessing or using the Software, you agree to be bound by these Terms of Service.
+                    </p>
+
+                    <div>
+                        <h2 class="font-heading text-xl font-bold text-white mb-3">2.1. Eligibility & Age Restrictions</h2>
+                        <p>
+                            You must be at least 13 years old (or 16 years old in the European Economic Area) to use the Software. If you are under this age, you are not permitted to use the Software.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h2 class="font-heading text-xl font-bold text-white mb-3">2.2. Use of Software & Self-Hosting</h2>
+                        <ul class="list-disc list-inside pl-4 space-y-2">
+                            <li><strong class="text-white">The Client:</strong> The client application is provided as open-source software. You are free to run, modify, and distribute it.</li>
+                            <li><strong class="text-white">The Default Relay:</strong> We provide a default public routing relay for convenience. We reserve the right to limit, suspend, or terminate access to this relay at any time, for any reason, without notice.</li>
+                            <li><strong class="text-white">Custom Relays:</strong> You have the option to connect the client to third-party or self-hosted relays. We are not responsible for the data processing, uptime, or security of any custom relay servers.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h2 class="font-heading text-xl font-bold text-white mb-3">2.3. Disclaimer of Warranties & Limitation of Liability</h2>
+                        <ul class="list-disc list-inside pl-4 space-y-2">
+                            <li><strong class="text-white">"As-Is" Provision:</strong> The Software and default relay are provided "AS IS" and "AS AVAILABLE" without warranties of any kind, either express or implied.</li>
+                            <li><strong class="text-white">No Backup:</strong> We do not store your private keys, usernames, or message database. If you lose your keys or clear your browser data, your conversations and identity are permanently lost.</li>
+                            <li><strong class="text-white">Liability Cap:</strong> In no event shall the developers, contributors, or hosting sponsors of Echo be liable for any direct, indirect, incidental, or consequential damages (including loss of data, keys, or profits) arising from your use of the Software.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h2 class="font-heading text-xl font-bold text-white mb-3">2.4. Copyright & DMCA Takedown Policy</h2>
+                        <p>
+                            Since messages are end-to-end encrypted and routed ephemerally without storage on our servers, we have no physical ability to remove copyrighted content from transit. However, to report abuse or copyright issues related to our website or open-source repositories:
+                        </p>
+                        <ul class="list-disc list-inside pl-4 mt-2 space-y-1">
+                            <li>Contact our Designated Agent: <a href="mailto:support@echo.network" class="text-primary hover:underline">support@echo.network</a></li>
+                            <li>Include the specific URL or repository file containing the alleged infringement.</li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-4 pt-6 border-t border-zinc-border/40 flex justify-start">
+                        <a href="#home" class="btn btn-secondary font-mono text-xs uppercase tracking-wider">&lt; Return to home</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
     </main>
 
     <!-- Footer Shell -->
@@ -683,6 +800,8 @@
             <div class="flex flex-wrap justify-center gap-x-8 gap-y-4">
                 <a class="font-mono text-xs text-zinc-muted hover:text-on-surface transition-colors uppercase tracking-wider" href="#">Whitepaper</a>
                 <a class="font-mono text-xs text-zinc-muted hover:text-on-surface transition-colors uppercase tracking-wider" href="#">Specs</a>
+                <a class="font-mono text-xs text-zinc-muted hover:text-on-surface transition-colors uppercase tracking-wider" href="#privacy" id="footer-privacy-link">Privacy Policy</a>
+                <a class="font-mono text-xs text-zinc-muted hover:text-on-surface transition-colors uppercase tracking-wider" href="#terms" id="footer-terms-link">Terms of Service</a>
                 <a class="font-mono text-xs text-primary hover:text-on-surface transition-colors uppercase tracking-wider" href="#network" id="footer-net-link">Network Status</a>
                 <a class="font-mono text-xs text-zinc-muted hover:text-on-surface transition-colors uppercase tracking-wider" href="https://github.com/mrsarthi/Echo-Messenger">Repository</a>
             </div>
