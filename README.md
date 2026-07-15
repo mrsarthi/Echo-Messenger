@@ -1,4 +1,4 @@
-# [Echo](https://mrsarthi.github.io/Echo-Messenger/) - Technical Specification & User Guide
+# [Echo](https://mrsarthi.github.io/EchoIt-Messenger/) - Technical Specification & User Guide
 **A secure, private, and local-first messaging client where you own your cryptographic identity, choose your routing nodes, and control your conversations.**
 ---
 ## What is Echo?
